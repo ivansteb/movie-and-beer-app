@@ -44,7 +44,7 @@ export const db = getFirestore(app);
 
 // Usar emuladores en desarrollo local si la variable está presente
 const useEmulators = import.meta.env.VITE_USE_FIREBASE_EMULATORS === "true";
-if (useEmulators) {
+if (useEmulators && isDevelopment) {
   connectFirestoreEmulator(db, "localhost", 8080);
   connectAuthEmulator(auth, "http://localhost:9099", { disableWarnings: true });
   console.log("--- Usando emuladores de Firebase!");
