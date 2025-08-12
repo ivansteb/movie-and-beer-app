@@ -7,7 +7,7 @@ import {
 import { connectFirestoreEmulator, getFirestore } from "firebase/firestore";
 
 // Determinar qué configuración usar según el entorno
-const isDevelopment = process.env.NODE_ENV === "development";
+const isDevelopment = import.meta.env.MODE === "development";
 
 // Es seguro exponer estas claves en el frontend.
 // Firebase lo gestiona con sus reglas de seguridad.
