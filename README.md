@@ -33,6 +33,8 @@ Sigue estos pasos para levantar el proyecto en tu máquina local.
 
 1.  Tener instalado [Node.js](https://nodejs.org/) (versión 20.19.0 o superior).
 2.  Tener una cuenta de [Firebase](https://firebase.google.com/) para configurar el backend.
+3.  Tener instalado el [Firebase CLI](https://firebase.google.com/docs/cli).
+4.  Tener instalado un **Java Development Kit (JDK)** versión 17 o superior (requerido por los emuladores de Firebase).
 
 ### **Instalación y Configuración**
 
@@ -68,6 +70,27 @@ Sigue estos pasos para levantar el proyecto en tu máquina local.
     npm run dev
     ```
     ¡Abre `http://localhost:5173` (o el puerto que indique Vite) en tu navegador y listo!
+
+### **Desarrollo local con emuladores de Firebase**
+
+Para desarrollar de forma local sin afectar tu base de datos de producción, puedes usar el Emulador de Firebase.
+
+1.  **Inicia sesión en Firebase CLI:**
+    ```bash
+    firebase login
+    ```
+
+2.  **Configura los emuladores (solo la primera vez):**
+    ```bash
+    firebase init emulators
+    ```
+    Selecciona los emuladores de **Authentication**, **Firestore** y **Hosting**. Usa los puertos por defecto.
+
+3.  **Inicia los emuladores:**
+    ```bash
+    firebase emulators:start
+    ```
+    Esto levantará los servicios de Firebase en tu máquina local. La UI de los emuladores estará disponible en `http://localhost:4000`.
 
 ---
 
