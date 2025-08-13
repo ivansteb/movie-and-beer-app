@@ -26,8 +26,8 @@ const Header = ({ user }: HeaderProps) => {
   };
 
   return (
-    <header className="bg-gray-800 text-white shadow-md w-full">
-      <div className="container mx-auto flex items-center justify-between p-4">
+    <header className="bg-gray-800 text-white shadow-md w-full h-[10vh]">
+      <div className="container mx-auto flex items-center justify-between h-full p-4">
         <h1 className="text-xl md:text-2xl font-bold">🎬 Movie & Beer 🍻</h1>
         {user ? (
           <div className="flex items-center gap-4">
