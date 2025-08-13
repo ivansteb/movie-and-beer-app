@@ -47,7 +47,7 @@ const AddMovieModal = ({ onClose }: AddMovieModalProps) => {
       setTimeout(() => {
         setIsSubmitting(false);
         onClose();
-      }, 800); // Espera de 500ms para simular una carga
+      }, 800); // Espera de 800ms para simular una carga
     } catch (err) {
       console.error("Error al añadir la película:", err);
       setError("No se pudo añadir la película. Inténtalo de nuevo.");
