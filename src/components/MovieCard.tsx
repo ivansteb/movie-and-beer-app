@@ -57,15 +57,19 @@ const MovieCard = ({ movie, currentUser }: MovieCardProps) => {
         </p>
 
         <div className="mt-auto flex justify-between items-center">
-          <label className="flex items-center gap-2 cursor-pointer text-white">
-            <input
-              type="checkbox"
-              checked={movie.isWatched}
-              onChange={toggleWatched}
-              className="form-checkbox h-5 w-5 text-green-500 bg-gray-800 border-gray-600 rounded focus:ring-green-500"
-            />
-            Vista
-          </label>
+          {currentUser ? (
+            <label className="flex items-center gap-2 cursor-pointer text-white">
+              <input
+                type="checkbox"
+                checked={movie.isWatched}
+                onChange={toggleWatched}
+                className="form-checkbox h-5 w-5 text-green-500 bg-gray-800 border-gray-600 rounded focus:ring-green-500"
+              />
+              Vista
+            </label>
+          ) : (
+            <span className="h-5"></span>
+          )}
           <span
             className={`px-3 py-1 text-sm font-semibold rounded-full ${
               platformStyles[movie.platform]
