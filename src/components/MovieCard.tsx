@@ -1,6 +1,6 @@
 import type { User } from "firebase/auth";
 import { deleteDoc, doc, updateDoc } from "firebase/firestore";
-import { FaTrash } from "react-icons/fa";
+import { FaRegEye, FaRegEyeSlash, FaTrash } from "react-icons/fa";
 import { db } from "../firebase/config";
 import type { Movie } from "../types";
 
@@ -58,15 +58,27 @@ const MovieCard = ({ movie, currentUser }: MovieCardProps) => {
 
         <div className="mt-auto flex justify-between items-center">
           {currentUser ? (
-            <label className="flex items-center gap-2 cursor-pointer text-white">
-              <input
-                type="checkbox"
-                checked={movie.isWatched}
-                onChange={toggleWatched}
-                className="form-checkbox h-5 w-5 text-green-500 bg-gray-800 border-gray-600 rounded focus:ring-green-500"
-              />
-              Vista
-            </label>
+            <button
+              onClick={toggleWatched}
+              className="text-gray-300 hover:text-white transition-colors"
+              title={
+                movie.isWatched
+                  ? "Marcar como pendiente para ver"
+                  : "Marcar como vista"
+              }
+            >
+              {movie.isWatched ? (
+                <FaRegEyeSlash
+                  size={22}
+                  className="text-gray-400 hover:text-white transition-colors"
+                />
+              ) : (
+                <FaRegEye
+                  size={22}
+                  className="text-gray-500 hover:text-white transition-colors"
+                />
+              )}
+            </button>
           ) : (
             <span className="h-5"></span>
           )}
