@@ -41,61 +41,66 @@ const MovieCard = ({ movie, currentUser }: MovieCardProps) => {
   const canDelete = currentUser?.uid === movie.addedByUid;
 
   return (
-    <div
-      className={`relative flex flex-col bg-gray-700 rounded-lg shadow-lg overflow-hidden transition-all duration-300 ${
-        movie.isWatched ? "opacity-50" : "opacity-100"
+    <article
+      className={`relative rounded-lg shadow-lg overflow-hidden transition-all duration-300 h-96 ${
+        movie.isWatched ? "opacity-45" : "opacity-100"
       }`}
+      style={{
+        backgroundImage: `url(${movie.imageUrl})`,
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+      }}
     >
-      <img
-        src={movie.imageUrl}
-        alt={`Poster de ${movie.title}`}
-        className="w-full h-64 object-cover"
-      />
+      {/* Capa de gradiente para legibilidad */}
+      <div className="absolute inset-0 bg-gradient-to-t from-black via-black/60 to-transparent"></div>
 
-      <div className="p-4 flex flex-col flex-grow">
-        <h3 className="text-xl font-bold text-white mb-2">{movie.title}</h3>
-        <p className="text-gray-300 mb-1">
-          <strong>Género:</strong> {movie.genre}
-        </p>
-        <p className="text-gray-300 text-sm mb-4">
-          Añadida por: {movie.addedByName}
-        </p>
+      {/* Contenido principal */}
+      <section className="relative h-full flex flex-col p-4">
+        <div className="mt-auto">
+          <h3 className="text-xl font-bold text-white mb-2">{movie.title}</h3>
+          <p className="text-gray-300 mb-1">
+            <strong>Género:</strong> {movie.genre}
+          </p>
+          <p className="text-gray-300 text-sm mb-4">
+            Añadida por: {movie.addedByName}
+          </p>
 
-        <div className="mt-auto flex justify-between items-center">
-          {currentUser ? (
-            <button
-              onClick={toggleWatched}
-              className="text-gray-300 hover:text-white transition-colors"
-              title={
-                movie.isWatched
-                  ? "Marcar como pendiente para ver"
-                  : "Marcar como vista"
-              }
+          <div className="mt-auto flex justify-between items-center">
+            {currentUser ? (
+              <button
+                onClick={toggleWatched}
+                className="text-gray-300 hover:text-white transition-colors"
+                title={
+                  movie.isWatched
+                    ? "Marcar como pendiente para ver"
+                    : "Marcar como vista"
+                }
+              >
+                {movie.isWatched ? (
+                  <FaRegEyeSlash
+                    size={22}
+                    className="text-gray-400 hover:text-white transition-colors"
+                  />
+                ) : (
+                  <FaRegEye
+                    size={22}
+                    className="text-gray-500 hover:text-white transition-colors"
+                  />
+                )}
+              </button>
+            ) : (
+              <span className="h-5"></span>
+            )}
+            <span
+              className={`px-3 py-1 text-sm font-semibold rounded-full ${
+                platformStyles[movie.platform]
+              }`}
             >
-              {movie.isWatched ? (
-                <FaRegEyeSlash
-                  size={22}
-                  className="text-gray-400 hover:text-white transition-colors"
-                />
-              ) : (
-                <FaRegEye
-                  size={22}
-                  className="text-gray-500 hover:text-white transition-colors"
-                />
-              )}
-            </button>
-          ) : (
-            <span className="h-5"></span>
-          )}
-          <span
-            className={`px-3 py-1 text-sm font-semibold rounded-full ${
-              platformStyles[movie.platform]
-            }`}
-          >
-            {movie.platform}
-          </span>
+              {movie.platform}
+            </span>
+          </div>
         </div>
-      </div>
+      </section>
 
       {canDelete && (
         <button
@@ -115,7 +120,7 @@ const MovieCard = ({ movie, currentUser }: MovieCardProps) => {
           onCancel={() => setShowDeleteModal(false)}
         />
       )}
-    </div>
+    </article>
   );
 };
 
