@@ -1,6 +1,7 @@
 import type { User } from "firebase/auth";
 import { signInWithPopup, signOut } from "firebase/auth";
 import { FcGoogle } from "react-icons/fc";
+import { TbLogout } from "react-icons/tb";
 import { auth, googleProvider } from "../firebase/config";
 
 interface HeaderProps {
@@ -38,9 +39,10 @@ const Header = ({ user }: HeaderProps) => {
             />
             <button
               onClick={handleLogout}
-              className="bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded transition-colors duration-300"
+              className="text-gray-300 hover:text-red-500 transition-colors duration-300"
+              title="Cerrar sesión"
             >
-              Salir
+              <TbLogout size={22} />
             </button>
           </div>
         ) : (
