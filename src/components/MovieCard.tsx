@@ -1,8 +1,10 @@
 import type { User } from "firebase/auth";
 import { deleteDoc, doc, updateDoc } from "firebase/firestore";
+import { useState } from "react";
 import { FaRegEye, FaRegEyeSlash, FaTrash } from "react-icons/fa";
 import { db } from "../firebase/config";
 import type { Movie } from "../types";
+import RemoveMovieModal from "./RemoveMovieModal";
 
 interface MovieCardProps {
   movie: Movie;
@@ -19,7 +21,11 @@ const platformStyles: Record<Movie["platform"], string> = {
 };
 
 const MovieCard = ({ movie, currentUser }: MovieCardProps) => {
+  // Referencia al documento de la película en Firestore
   const movieRef = doc(db, "movies", movie.id);
+
+  // Manejo del estado del modal de eliminación
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
 
   const toggleWatched = async () => {
     await updateDoc(movieRef, {
@@ -28,9 +34,8 @@ const MovieCard = ({ movie, currentUser }: MovieCardProps) => {
   };
 
   const handleDelete = async () => {
-    if (window.confirm(`¿Seguro que quieres eliminar "${movie.title}"?`)) {
-      await deleteDoc(movieRef);
-    }
+    await deleteDoc(movieRef);
+    setShowDeleteModal(false);
   };
 
   const canDelete = currentUser?.uid === movie.addedByUid;
@@ -94,12 +99,21 @@ const MovieCard = ({ movie, currentUser }: MovieCardProps) => {
 
       {canDelete && (
         <button
-          onClick={handleDelete}
+          onClick={() => setShowDeleteModal(true)}
           className="absolute top-2 right-2 bg-red-600 p-2 rounded-full text-white hover:bg-red-700 transition-colors"
           aria-label="Eliminar película"
         >
           <FaTrash />
         </button>
+      )}
+
+      {/* Modal de confirmación para eliminar película */}
+      {showDeleteModal && (
+        <RemoveMovieModal
+          title={movie.title}
+          onConfirm={handleDelete}
+          onCancel={() => setShowDeleteModal(false)}
+        />
       )}
     </div>
   );
